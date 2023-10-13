@@ -10,13 +10,15 @@ if(localStorage.getItem("taskEntry") === null){
 
 function removeItem(){
     this.parentNode.remove();
+    let taskEntry = JSON.parse(localStorage.getItem("taskEntry"));
+    let newArray = taskEntry.filter(item => item.id !== this.id);
+    localStorage.setItem("taskEntry", JSON.stringify(newArray));
 }
 
 function addTask(){
     let li = document.createElement('li');
     li.innerHTML = entry.value;
     
-
     taskList.appendChild(li);
 
     let deleteBtn = document.createElement('button');
@@ -25,8 +27,6 @@ function addTask(){
     li.appendChild(deleteBtn);
 
     deleteBtn.addEventListener("click", removeItem)
-
-
 
     let myObj = {
         item: entry.value,
