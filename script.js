@@ -8,30 +8,41 @@ if(localStorage.getItem("taskEntry") === null){
     myArray = JSON.parse(localStorage.getItem("taskEntry"));
 }
 
-function removeItem(){
-    this.parentNode.remove();
-    let taskEntry = JSON.parse(localStorage.getItem("taskEntry"));
-    let newArray = taskEntry.filter(item => item.id !== this.id);
-    localStorage.setItem("taskEntry", JSON.stringify(newArray));
+function deleteTask(){
+    
+    myArray = myArray.filter(function(item){
+        return item.id != id;
+    })  
+    //let newArray = taskEntry.filter(taskEntry => taskEntry.id !== this.id);
+    localStorage.setItem("taskEntry", JSON.stringify(myArray));
+    deleteBtn.parentNode.remove();
 }
 
 function addTask(){
+    
     let li = document.createElement('li');
     li.innerHTML = entry.value;
+    li.setAttribute('class', myObj.id);
     
+    
+        
     taskList.appendChild(li);
 
     let deleteBtn = document.createElement('button');
     deleteBtn.innerText = "Delete";
-    deleteBtn.setAttribute('id','dB');
+    deleteBtn.setAttribute('class', 'dB');
     li.appendChild(deleteBtn);
 
-    deleteBtn.addEventListener("click", removeItem)
+    deleteBtn.onclick = function(){
+        deleteTask(item.id);
+    }
 
     let myObj = {
         item: entry.value,
         id: Math.floor(Math.random()*100)
     }
+    li.setAttribute('id', myObj.id);
+    deleteBtn.setAttribute('id', myObj.id);
 
     myArray.push(myObj);
 
@@ -44,4 +55,23 @@ function addTask(){
 function clearBtn(){
     localStorage.removeItem("taskEntry");
     taskList.innerHTML = "";
+    for(let i = 0; i <= myArray.length; i ++){
+        myArray.pop();
+    }
 }
+
+function showTasks(){
+    for(let i = 0; i < myArray.length; i++){
+        let li = document.createElement('li');
+
+        li.innerHTML = myArray[i].item;
+        taskList.appendChild(li);
+
+        let deleteBtn = document.createElement('button');
+        deleteBtn.innerHTML = 'Delete';
+        deleteBtn.setAttribute('class', 'dB');
+        li.appendChild(deleteBtn);
+    }
+}
+
+showTasks()
