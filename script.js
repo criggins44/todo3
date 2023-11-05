@@ -8,6 +8,11 @@ if(localStorage.getItem("taskEntry") === null){
     myArray = JSON.parse(localStorage.getItem("taskEntry"));
 }
 
+let myObj = {
+    item: entry.value,
+    id: Math.floor(Math.random()*100)
+}
+
 function deleteTask(){
     
     myArray = myArray.filter(function(item){
@@ -23,8 +28,6 @@ function addTask(){
     let li = document.createElement('li');
     li.innerHTML = entry.value;
     li.setAttribute('class', myObj.id);
-    
-    
         
     taskList.appendChild(li);
 
@@ -37,10 +40,7 @@ function addTask(){
         deleteTask(item.id);
     }
 
-    let myObj = {
-        item: entry.value,
-        id: Math.floor(Math.random()*100)
-    }
+
     li.setAttribute('id', myObj.id);
     deleteBtn.setAttribute('id', myObj.id);
 
