@@ -26,9 +26,15 @@ function deleteTask(){
 function addTask(){
     
     let li = document.createElement('li');
-    li.innerHTML = entry.value;
+    let inputValue = entry.value;
+    if(inputValue === ""){
+        alert('no value entered');
+        return
+    };
+    
+    li.innerHTML = inputValue;
     li.setAttribute('class', myObj.id);
-        
+    
     taskList.appendChild(li);
 
     let deleteBtn = document.createElement('button');
